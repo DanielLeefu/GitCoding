@@ -27,6 +27,8 @@ const verfiyLogin = async (ctx, next) => {
     return ctx.app.emit('error', error, ctx);
   }
 
+  // 将user写到ctx里面，用来颁发token的时候使用
+  ctx.user = user;
 
   await next()
 }
