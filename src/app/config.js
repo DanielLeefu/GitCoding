@@ -8,9 +8,9 @@ dotenv.config();
 // console.log(process.env);
 // console.log(process.env.APP_PORT);
 
-
-const PRIVATE_KEY = fs.redaFileasync
-
+// 定义公钥私钥
+const PRIVATE_KEY = fs.readFileSync('./src/app/keys/private.key');
+const PUBLIC_KEY = fs.readFileSync('./src/app/keys/public.key');
 
 
 module.exports = {
@@ -23,3 +23,4 @@ module.exports = {
 } = process.env;
 
 module.exports.PRIVATE_KEY = PRIVATE_KEY;
+module.exports.PUBLIC_KEY = PUBLIC_KEY;

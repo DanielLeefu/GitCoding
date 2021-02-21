@@ -13,19 +13,24 @@ class AuthController {
 
     // 采用非对称加密生成token 颁发签名
     const token = jwt.sign({id, name}, PRIVATE_KEY, {
-      expiresIn: 60 * 60 * 24,
-      algorithm: 'RS256'
+      algorithm: 'RS256',
+      expiresIn: '2 days'
     })
-
-    const { name } = ctx.request.body;
 
     ctx.body = {
       id,
       name,
-      token
+      token,
+      // message: '登陆成功'
     }
-
   }
+
+  async success(ctx, next) {
+    ctx.body = '验证成功'
+  }
+
+  
+
 }
 
-module.exports  = new AuthController();
+module.exports = new AuthController();

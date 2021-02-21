@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+const { PUBLIC_KEY } = require('../app/config');
 const errorTypes = require('../constants/error-types')
 
 const service = require('../service/user.service');
@@ -33,6 +35,38 @@ const verfiyLogin = async (ctx, next) => {
   await next()
 }
 
+
+// 验证token是否有效
+const verifyToken = async (ctx, next) => {
+
+  // 获取token
+  const authorization = ctx.headers.authorization;
+
+  if (!authorization) {
+    const error = new Error(errorTypes.TOKENISEXIT)
+    return ctx.app.emit('error', error, ctx);
+  }
+  // 注意这里的 ‘Bearer ’
+  const getToken = authorization.replace('Bearer ', '');
+  // 验证token
+  try {
+    const result = jwt.verify(getToken, PUBLIC_KEY, {
+      algorithms: ['RS256'],
+    })
+
+    ctx.user = result;
+    await next()
+
+  } catch (err) {
+    
+    const error = new Error(errorTypes.TOKENISEXIT)
+    return ctx.app.emit('error', error, ctx);
+    
+  }
+}
+
+
 module.exports = {
-  verfiyLogin
+  verfiyLogin,
+  verifyToken
 }
