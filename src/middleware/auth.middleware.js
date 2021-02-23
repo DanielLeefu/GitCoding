@@ -15,7 +15,7 @@ const verfiyLogin = async (ctx, next) => {
   }
 
   // 判断用户是不是存在
-  const result = await service.getUserByName(name);
+  const result = await service.getUserByNames(name);
   // 数据库查到对信息
   const user = result[0];
   if (!user) {

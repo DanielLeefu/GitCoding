@@ -8,7 +8,6 @@ const { PRIVATE_KEY } = require('../app/config')
 
 class AuthController {
   async login(ctx, next) {
-
     const { id, name } = ctx.user;
 
     // 采用非对称加密生成token 颁发签名

@@ -13,9 +13,17 @@ class UserService {
     return result;
   }
 
+  // 注册 
   async getUserByName(name, email) {
     const statement = `SELECT * FROM users WHERE name = ? || email = ?;`;
     const result = await connection.execute(statement, [name, email]);
+    return result[0];
+  }
+
+  // 登陆
+  async getUserByNames(name) {
+    const statement = `SELECT * FROM users WHERE name = ?;`;
+    const result = await connection.execute(statement, [name]);
     return result[0];
   }
 
