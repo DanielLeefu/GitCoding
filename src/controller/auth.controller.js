@@ -13,7 +13,7 @@ class AuthController {
     // 采用非对称加密生成token 颁发签名
     const token = jwt.sign({id, name}, PRIVATE_KEY, {
       algorithm: 'RS256',
-      expiresIn: '2 days'
+      expiresIn: '2 day'
     })
 
     ctx.body = {

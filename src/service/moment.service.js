@@ -22,7 +22,6 @@ class MomentService {
   }
 
   async momentList(pageNumber, pageSize) {
-    console.log(pageNumber, pageSize)
     const statement = `SELECT moment.id id, moment.content content, moment.createTime createTime, moment.updateTime updateTime,
     JSON_OBJECT("id", users.id, "name", users.name) user
     FROM moment
@@ -30,8 +29,16 @@ class MomentService {
     users ON moment.user_id = users.id 
     LIMIT ?, ?;`;
     const [result] = await connection.execute(statement, [pageNumber, pageSize]);
-    console.log(result, '---->result')
     return result
+  }
+
+  // 修改动态内容
+  async updateMomentContent(momentId, content) {
+    const statement = `UPDATE moment SET content = ? WHERE id = ?`;
+    const [result] = await connection.execute(statement, [content, momentId]);
+    return result
+    
+
   }
 
 }
