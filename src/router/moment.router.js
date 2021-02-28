@@ -3,7 +3,7 @@ const Router = require('koa-router');
 // 使用 koa-router 库 对路由划分
 const momentRouter = new Router({prefix: '/moment'});
 
-const { create, momentDetail, momentList, updateMoment } = require('../controller/moment.controller')
+const { create, momentDetail, momentList, updateMoment, remove } = require('../controller/moment.controller')
 
 // verifyUser 中间件 用来验证
 const { verifyToken } = require('../middleware/auth.middleware')
@@ -20,12 +20,13 @@ momentRouter.post('/list', momentList)
 momentRouter.get('/:momentId', momentDetail)
 
 // 修改动态
-momentRouter.patch('/:updateMoment', verifyToken, verifyPremission, updateMoment)
+momentRouter.patch('/:momentId', verifyToken, verifyPremission, updateMoment)
 
 // 删除动态 delete
+momentRouter.delete('/:momentId', verifyToken, verifyPremission, remove)
 
 // 获取该用户所有动态 TODO 分页
 
 
-
+ 
 module.exports = momentRouter;
